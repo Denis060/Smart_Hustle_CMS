@@ -1,13 +1,25 @@
 // This file is located at: backend/models/index.js
 
 const sequelize = require('../config/database');
-const User = require('./User');
-const Post = require('./Post');
-const Course = require('./Course');
-const Category = require('./Category');
-const Tag = require('./Tag');
-const Comment = require('./Comment');
-const Subscriber = require('./Subscriber');
+const UserModel = require('./User');
+const PostModel = require('./Post');
+const CourseModel = require('./Course');
+const CategoryModel = require('./Category');
+const TagModel = require('./Tag');
+const CommentModel = require('./Comment');
+const SubscriberModel = require('./Subscriber');
+const SettingModel = require('./Setting');
+
+// Initialize models
+// Some models export a function (User, Setting), others export the model directly
+const User = UserModel(sequelize);
+const Post = PostModel;
+const Course = CourseModel;
+const Category = CategoryModel;
+const Tag = TagModel;
+const Comment = CommentModel;
+const Subscriber = SubscriberModel;
+const Setting = SettingModel(sequelize);
 
 // --- DEFINE RELATIONSHIPS ---
 
@@ -45,6 +57,7 @@ const db = {
   Tag,
   Comment,
   Subscriber,
+  Setting,
 };
 
 module.exports = db;

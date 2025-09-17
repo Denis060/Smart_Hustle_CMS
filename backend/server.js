@@ -10,7 +10,14 @@ const db = require('./models'); // Imports the db object from models/index.js
 const app = express();
 
 // --- Middleware ---
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+
+// *** FIX: Explicitly configure CORS to allow your frontend's origin ***
+const corsOptions = {
+  origin: 'http://localhost:5175', // Your Vite frontend's address
+  optionsSuccessStatus: 200 // For legacy browser support
+};
+app.use(cors(corsOptions));
+
 app.use(express.json()); // Parse incoming JSON requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 
@@ -35,7 +42,7 @@ app.use('/api/settings', settingRoutes); // Use setting routes
 
 
 // --- Database Connection & Server Initialization ---
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 // Test the database connection
 db.sequelize.authenticate()
